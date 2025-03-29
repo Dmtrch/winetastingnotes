@@ -1,0 +1,47 @@
+{
+  "expo": {
+    "name": "WineTastingNotes",
+    "slug": "WineTastingNotes",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Приложению требуется доступ к камере для фотографирования вин",
+        "NSPhotoLibraryUsageDescription": "Приложению требуется доступ к фотогалерее для сохранения фотографий вин",
+        "NSPhotoLibraryAddUsageDescription": "Приложению требуется разрешение на добавление фото в вашу галерею",
+        "NSDocumentsFolderUsageDescription": "Приложению требуется доступ к документам для экспорта и импорта данных"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "MEDIA_LIBRARY",
+        "READ_MEDIA_IMAGES"
+      ],
+      "package": "com.winetastingnotesapp"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
