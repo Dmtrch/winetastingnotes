@@ -12,7 +12,8 @@
       "backgroundColor": "#ffffff"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/110b55c8-4d19-447a-9711-8fc28bd964cf"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -23,8 +24,10 @@
         "NSCameraUsageDescription": "Приложению требуется доступ к камере для фотографирования вин",
         "NSPhotoLibraryUsageDescription": "Приложению требуется доступ к фотогалерее для сохранения фотографий вин",
         "NSPhotoLibraryAddUsageDescription": "Приложению требуется разрешение на добавление фото в вашу галерею",
-        "NSDocumentsFolderUsageDescription": "Приложению требуется доступ к документам для экспорта и импорта данных"
-      }
+        "NSDocumentsFolderUsageDescription": "Приложению требуется доступ к документам для экспорта и импорта данных",
+        "ITSAppUsesNonExemptEncryption": false
+      },
+      "bundleIdentifier": "com.winetastingnotesapp"
     },
     "android": {
       "adaptiveIcon": {
@@ -36,12 +39,25 @@
         "READ_EXTERNAL_STORAGE",
         "WRITE_EXTERNAL_STORAGE",
         "MEDIA_LIBRARY",
+        "READ_MEDIA_IMAGES",
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "MEDIA_LIBRARY",
         "READ_MEDIA_IMAGES"
       ],
       "package": "com.winetastingnotesapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "110b55c8-4d19-447a-9711-8fc28bd964cf"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
   }
 }

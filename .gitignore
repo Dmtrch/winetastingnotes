@@ -1,36 +1,88 @@
-# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
-
-# dependencies
+# Node.js зависимости
 node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+.pnp
+.pnp.js
 
-# Expo
+# Expo и React Native
 .expo/
-dist/
+.expo-shared/
 web-build/
-expo-env.d.ts
+dist/
+.metro-health-check*
 
-# Native
-*.orig.*
+# Нативные сборки
+android/app/build/
+ios/build/
+ios/Pods/
+android/.gradle/
+
+# Файлы среды разработки
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Промежуточные файлы
 *.jks
 *.p8
 *.p12
 *.key
 *.mobileprovision
-
-# Metro
-.metro-health-check*
-
-# debug
-npm-debug.*
-yarn-debug.*
-yarn-error.*
+*.orig.*
 
 # macOS
 .DS_Store
-*.pem
+.AppleDouble
+.LSOverride
+._*
 
-# local env files
-.env*.local
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
 
-# typescript
-*.tsbuildinfo
+# Linux
+*.swp
+*~
+
+# IDE и редакторы
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.project
+.classpath
+.settings/
+*.iml
+
+# Локальные файлы тестирования и покрытия
+coverage/
+.nyc_output/
+.jest/
+
+# EAS Build
+eas-build-pre-install-script.sh
+eas-build-post-install-script.sh
+
+# Временные файлы
+tmp/
+temp/
+
+# Локальные данные приложения (тестовые данные, фото и т.д.)
+**/exported_images/
+**/winetastenote/
+
+# Резервные копии
+*.bak
+*.backup
+*.old
+*.swp
+
+# Папки с логами
+logs/
+*.log
