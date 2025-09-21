@@ -46,6 +46,37 @@ class PhotoService {
   }
 
   /**
+   * Выбрать фото из галереи и сохранить в альбом приложения
+   */
+  async pickPhotoFromGallery(): Promise<string | null> {
+    // Запрашиваем разрешения
+    const hasPermissions = await this.requestPermissions();
+    if (!hasPermissions) {
+      return null;
+    }
+
+    // Открываем галерею
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 0.8,
+    });
+
+    if (result.canceled || !result.assets || result.assets.length === 0) {
+      return null;
+    }
+
+    const asset = result.assets[0];
+    if (!asset.uri) {
+      return null;
+    }
+
+    // Сохраняем изображение в директорию приложения
+    return await this.savePhotoToWineAlbum(asset.uri);
+  }
+
+  /**
    * Сделать фото через камеру и сохранить в альбом приложения
    */
   async takePhoto(): Promise<string | null> {
@@ -101,7 +132,7 @@ class PhotoService {
       });
       console.log(`Изображение скопировано в: ${destPath}`);
 
-      return destPath;
+      return `file://${destPath}`;
     } catch (error) {
       console.error('Ошибка при сохранении фото в альбом приложения:', error);
       return uri; // В случае ошибки возвращаем исходный URI
@@ -130,6 +161,25 @@ class PhotoService {
    */
   async checkAndRequestAllPermissions(): Promise<boolean> {
     return await this.requestPermissions();
+  }
+
+  /**
+   * Проверяет и исправляет формат URI изображения для совместимости с SDK 53
+   */
+  getValidImageUri(uri: string): string | null {
+    if (!uri) return null;
+    
+    // Если URI уже содержит протокол, возвращаем как есть
+    if (uri.startsWith('file://') || uri.startsWith('http://') || uri.startsWith('https://')) {
+      return uri;
+    }
+    
+    // Если это локальный путь, добавляем file:// префикс
+    if (uri.startsWith('/')) {
+      return `file://${uri}`;
+    }
+    
+    return uri;
   }
 }
 

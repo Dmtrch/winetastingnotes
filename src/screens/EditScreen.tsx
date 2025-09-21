@@ -6,6 +6,7 @@ import { RootStackParamList } from '../navigation/AppNavigator';
 import WineRecordService from '../services/WineRecordService';
 import { WineRecord } from '../constants/WineRecord';
 import Logo from '../components/Logo';
+import HomeButton from '../components/HomeButton';
 import PhotoService from '../services/PhotoService';
 import { RECORDS_FILENAME } from '../constants/Constants';
 import * as FileSystem from 'expo-file-system';
@@ -16,6 +17,12 @@ type EditScreenRouteProp = RouteProp<RootStackParamList, 'Edit'>;
 const EditScreen = () => {
   const navigation = useNavigation<EditScreenNavigationProp>();
   const route = useRoute<EditScreenRouteProp>();
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <HomeButton />,
+    });
+  }, [navigation]);
   
   const recordId = parseInt(route.params.recordId, 10);
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,15 +8,25 @@ import {
   StyleSheet,
   Alert,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 import * as FileSystem from 'expo-file-system';
 import Logo from '../components/Logo';
+import HomeButton from '../components/HomeButton';
+import { useNavigation } from '@react-navigation/native';
 import WineRecordService from '../services/WineRecordService';
 import { WineRecord } from '../constants/WineRecord';
 import PhotoService from '../services/PhotoService';
 import { RECORDS_FILENAME } from '../constants/Constants';
 
 const NotesScreen = () => {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <HomeButton />,
+    });
+  }, [navigation]);
   // Основные данные
   const [wineryName, setWineryName] = useState('');
   const [wineName, setWineName] = useState('');
@@ -54,9 +64,55 @@ const NotesScreen = () => {
   const [backLabelPhoto, setBackLabelPhoto] = useState('');
   const [plaquePhoto, setPlaquePhoto] = useState('');
 
+  // Функция выбора источника фотографии (камера или галерея)
+  const handlePhotoSourceSelection = (photoType: 'bottlePhoto' | 'labelPhoto' | 'backLabelPhoto' | 'plaquePhoto') => {
+    Alert.alert(
+      'Выбор фотографии',
+      'Выберите источник фотографии',
+      [
+        { text: 'Камера', onPress: () => handleTakePhoto(photoType) },
+        { text: 'Галерея', onPress: () => handlePickPhoto(photoType) },
+        { text: 'Отмена', style: 'cancel' }
+      ]
+    );
+  };
+
   // Функция запуска камеры для конкретного поля фотографии
   const handleTakePhoto = async (photoType: 'bottlePhoto' | 'labelPhoto' | 'backLabelPhoto' | 'plaquePhoto') => {
     const uri = await PhotoService.takePhoto();
+
+    if (uri) {
+      if (photoType === 'bottlePhoto') {
+        // Если уже было фото, удаляем его
+        if (bottlePhoto) {
+          await PhotoService.deletePhoto(bottlePhoto);
+        }
+        setBottlePhoto(uri);
+      } else if (photoType === 'labelPhoto') {
+        // Если уже было фото, удаляем его
+        if (labelPhoto) {
+          await PhotoService.deletePhoto(labelPhoto);
+        }
+        setLabelPhoto(uri);
+      } else if (photoType === 'backLabelPhoto') {
+        // Если уже было фото, удаляем его
+        if (backLabelPhoto) {
+          await PhotoService.deletePhoto(backLabelPhoto);
+        }
+        setBackLabelPhoto(uri);
+      } else if (photoType === 'plaquePhoto') {
+        // Если уже было фото, удаляем его
+        if (plaquePhoto) {
+          await PhotoService.deletePhoto(plaquePhoto);
+        }
+        setPlaquePhoto(uri);
+      }
+    }
+  };
+
+  // Функция выбора фотографии из галереи для конкретного поля фотографии
+  const handlePickPhoto = async (photoType: 'bottlePhoto' | 'labelPhoto' | 'backLabelPhoto' | 'plaquePhoto') => {
+    const uri = await PhotoService.pickPhotoFromGallery();
 
     if (uri) {
       if (photoType === 'bottlePhoto') {
@@ -420,16 +476,16 @@ const NotesScreen = () => {
       <View style={styles.photoContainer}>
         {bottlePhoto ? (
           <View style={styles.photoWrapper}>
-            <Image source={{ uri: bottlePhoto }} style={styles.photoThumbnail} />
+            <Image source={{ uri: PhotoService.getValidImageUri(bottlePhoto) || undefined }} style={styles.photoThumbnail} />
             <Button
               title="Изменить"
-              onPress={() => handleTakePhoto('bottlePhoto')}
+              onPress={() => handlePhotoSourceSelection('bottlePhoto')}
             />
           </View>
         ) : (
           <Button
-            title="Сделать фото бутылки"
-            onPress={() => handleTakePhoto('bottlePhoto')}
+            title="Добавить фото бутылки"
+            onPress={() => handlePhotoSourceSelection('bottlePhoto')}
           />
         )}
       </View>
@@ -438,16 +494,16 @@ const NotesScreen = () => {
       <View style={styles.photoContainer}>
         {labelPhoto ? (
           <View style={styles.photoWrapper}>
-            <Image source={{ uri: labelPhoto }} style={styles.photoThumbnail} />
+            <Image source={{ uri: PhotoService.getValidImageUri(labelPhoto) || undefined }} style={styles.photoThumbnail} />
             <Button
               title="Изменить"
-              onPress={() => handleTakePhoto('labelPhoto')}
+              onPress={() => handlePhotoSourceSelection('labelPhoto')}
             />
           </View>
         ) : (
           <Button
-            title="Сделать фото этикетки"
-            onPress={() => handleTakePhoto('labelPhoto')}
+            title="Добавить фото этикетки"
+            onPress={() => handlePhotoSourceSelection('labelPhoto')}
           />
         )}
       </View>
@@ -456,16 +512,16 @@ const NotesScreen = () => {
       <View style={styles.photoContainer}>
         {backLabelPhoto ? (
           <View style={styles.photoWrapper}>
-            <Image source={{ uri: backLabelPhoto }} style={styles.photoThumbnail} />
+            <Image source={{ uri: PhotoService.getValidImageUri(backLabelPhoto) || undefined }} style={styles.photoThumbnail} />
             <Button
               title="Изменить"
-              onPress={() => handleTakePhoto('backLabelPhoto')}
+              onPress={() => handlePhotoSourceSelection('backLabelPhoto')}
             />
           </View>
         ) : (
           <Button
-            title="Сделать фото контрэтикетки"
-            onPress={() => handleTakePhoto('backLabelPhoto')}
+            title="Добавить фото контрэтикетки"
+            onPress={() => handlePhotoSourceSelection('backLabelPhoto')}
           />
         )}
       </View>
@@ -474,16 +530,16 @@ const NotesScreen = () => {
       <View style={styles.photoContainer}>
         {plaquePhoto ? (
           <View style={styles.photoWrapper}>
-            <Image source={{ uri: plaquePhoto }} style={styles.photoThumbnail} />
+            <Image source={{ uri: PhotoService.getValidImageUri(plaquePhoto) || undefined }} style={styles.photoThumbnail} />
             <Button
               title="Изменить"
-              onPress={() => handleTakePhoto('plaquePhoto')}
+              onPress={() => handlePhotoSourceSelection('plaquePhoto')}
             />
           </View>
         ) : (
           <Button
-            title="Сделать фото плакетки"
-            onPress={() => handleTakePhoto('plaquePhoto')}
+            title="Добавить фото плакетки"
+            onPress={() => handlePhotoSourceSelection('plaquePhoto')}
           />
         )}
       </View>

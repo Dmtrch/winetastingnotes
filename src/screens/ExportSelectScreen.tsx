@@ -17,6 +17,7 @@ import { RootStackParamList } from '../navigation/AppNavigator';
 import WineRecordService from '../services/WineRecordService';
 import { WineRecord } from '../constants/WineRecord';
 import Logo from '../components/Logo';
+import HomeButton from '../components/HomeButton';
 import ExportHelper from '../services/ExportHelper';
 import { EXPORT_FILE_PREFIX } from '../constants/Constants';
 import ExportSelectItem from '../components/ExportSelectItem';
@@ -25,6 +26,12 @@ type ExportSelectScreenNavigationProp = NativeStackNavigationProp<RootStackParam
 
 const ExportSelectScreen = () => {
   const navigation = useNavigation<ExportSelectScreenNavigationProp>();
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <HomeButton />,
+    });
+  }, [navigation]);
   const [records, setRecords] = useState<WineRecord[]>([]);
   const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState(false);

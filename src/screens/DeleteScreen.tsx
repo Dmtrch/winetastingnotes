@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import HomeButton from '../components/HomeButton';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Alert, Button } from 'react-native';
 import * as FileSystem from 'expo-file-system';
 import WineRecordService from '../services/WineRecordService';
@@ -8,6 +10,13 @@ import PhotoService from '../services/PhotoService';
 import { RECORDS_FILENAME } from '../constants/Constants';
 
 const DeleteScreen = () => {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <HomeButton />,
+    });
+  }, [navigation]);
   // Состояния для списка записей и выбранных индексов
   const [records, setRecords] = useState<WineRecord[]>([]);
   const [selectedIndices, setSelectedIndices] = useState<number[]>([]);

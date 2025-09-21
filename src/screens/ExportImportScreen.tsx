@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -14,6 +14,7 @@ import {
 import * as FileSystem from 'expo-file-system';
 import * as DocumentPicker from 'expo-document-picker';
 import { useNavigation } from '@react-navigation/native';
+import HomeButton from '../components/HomeButton';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/AppNavigator';
 import WineRecordService from '../services/WineRecordService';
@@ -36,6 +37,12 @@ interface FileItem {
 
 const ExportImportScreen = () => {
   const navigation = useNavigation<ExportImportScreenNavigationProp>();
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <HomeButton />,
+    });
+  }, [navigation]);
 
   const [isLoading, setIsLoading] = useState(false);
 

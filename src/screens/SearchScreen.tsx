@@ -10,6 +10,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import HomeButton from '../components/HomeButton';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/AppNavigator';
 import WineRecordService from '../services/WineRecordService';
@@ -114,6 +115,7 @@ const SearchScreen = () => {
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => <BackButton onPress={navigateToMainMenu} />,
+      headerRight: () => <HomeButton />,
     });
   }, [navigation, navigateToMainMenu]);
 

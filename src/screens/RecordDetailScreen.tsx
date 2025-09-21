@@ -6,6 +6,7 @@ import { RootStackParamList } from '../navigation/AppNavigator';
 import WineRecordService from '../services/WineRecordService';
 import { WineRecord } from '../constants/WineRecord';
 import Logo from '../components/Logo';
+import HomeButton from '../components/HomeButton';
 
 type RecordDetailScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'RecordDetail'>;
 type RecordDetailScreenRouteProp = RouteProp<RootStackParamList, 'RecordDetail'>;
@@ -49,6 +50,7 @@ const RecordDetailScreen = () => {
     // Используем компонент BackButton с заранее определенной функцией
     navigation.setOptions({
       headerLeft: () => <BackButton onPress={navigateToSearch} />,
+      headerRight: () => <HomeButton />,
     });
   }, [navigation, navigateToSearch]);
 
