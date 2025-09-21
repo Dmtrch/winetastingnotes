@@ -2,15 +2,22 @@
   "name": "winetastingnotes",
   "version": "1.0.0",
   "main": "index.ts",
+  "private": true,
   "scripts": {
     "start": "expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "typecheck": "tsc --noEmit",
+    "start:dev": "expo start --dev-client -c",
+    "ios:dev": "expo run:ios -d \"iPhone 17 Pro Max\" --scheme WineTastingNotes",
+    "ios:reset": "xcrun simctl uninstall booted host.exp.Exponent || true && expo run:ios -d \"iPhone 17 Pro Max\" --scheme WineTastingNotes && expo start --dev-client -c"
   },
   "dependencies": {
     "@react-navigation/native": "^7.0.19",
     "@react-navigation/native-stack": "^7.3.3",
+    "base-64": "^1.0.0",
     "expo": "~54.0.0",
     "expo-camera": "~17.0.8",
     "expo-document-picker": "~14.0.7",
@@ -23,16 +30,30 @@
     "jszip": "^3.10.1",
     "react": "19.1.0",
     "react-native": "0.81.4",
+    "react-native-gesture-handler": "~2.28.0",
     "react-native-safe-area-context": "~5.6.0",
     "react-native-screens": "~4.16.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
-    "@babel/plugin-transform-private-methods": "^7.27.1",
+    "@babel/plugin-transform-class-properties": "^7.24.7",
+    "@babel/plugin-transform-private-methods": "^7.24.7",
+    "@babel/plugin-transform-typescript": "^7.24.7",
     "@react-native-community/cli": "latest",
     "@react-native/metro-config": "^0.80.1",
     "@types/react": "~19.1.10",
-    "typescript": "~5.9.2"
+    "eslint": "^8.57.0",
+    "@react-native/eslint-config": "^0.74.0",
+    "typescript": "~5.9.2",
+    "expo-dev-client": "^4.0.27"
   },
-  "private": true
+  "engines": {
+    "node": "20.x",
+    "npm": ">=10.0.0"
+  },
+  "expo": {
+    "install": {
+      "exclude": []
+    }
+  }
 }

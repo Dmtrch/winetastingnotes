@@ -1,65 +1,33 @@
 {
   "expo": {
-    "name": "WineTastingNotes",
-    "slug": "WineTastingNotes",
+    "name": "Wine Tasting Notes",
+    "slug": "winetastingnotes",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "cli": {
-      "usesDevelopmentClient": false
-    },
+    "scheme": "winetastingnotes",
+    "userInterfaceStyle": "automatic",
+    "jsEngine": "jsc",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true,
-      "infoPlist": {
-        "NSCameraUsageDescription": "Приложению требуется доступ к камере для фотографирования вин",
-        "NSPhotoLibraryUsageDescription": "Приложению требуется доступ к фотогалерее для сохранения фотографий вин",
-        "NSPhotoLibraryAddUsageDescription": "Приложению требуется разрешение на добавление фото в вашу галерею",
-        "NSDocumentsFolderUsageDescription": "Приложению требуется доступ к документам для экспорта и импорта данных",
-        "ITSAppUsesNonExemptEncryption": false
-      },
-      "bundleIdentifier": "com.winetastingnotesapp"
+      "bundleIdentifier": "com.winetastingnotesapp",
+      "supportsTablet": true
     },
     "android": {
+      "package": "com.winetastingnotesapp",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      },
-      "permissions": [
-        "CAMERA",
-        "READ_EXTERNAL_STORAGE",
-        "WRITE_EXTERNAL_STORAGE",
-        "MEDIA_LIBRARY",
-        "READ_MEDIA_IMAGES",
-        "CAMERA",
-        "READ_EXTERNAL_STORAGE",
-        "WRITE_EXTERNAL_STORAGE",
-        "MEDIA_LIBRARY",
-        "READ_MEDIA_IMAGES"
-      ],
-      "package": "com.winetastingnotesapp"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "110b55c8-4d19-447a-9711-8fc28bd964cf"
+        "backgroundColor": "#ffffff"
       }
     },
-    "runtimeVersion": {
-      "policy": "appVersion"
-    },
-    "updates": {
-      "url": "https://u.expo.dev/110b55c8-4d19-447a-9711-8fc28bd964cf"
+    "web": {
+      "bundler": "metro",
+      "favicon": "./assets/favicon.png"
     }
   }
 }
